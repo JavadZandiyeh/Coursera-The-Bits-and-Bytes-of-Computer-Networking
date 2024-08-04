@@ -22,7 +22,9 @@ To grasp networking, it's essential to understand the components involved, from 
    - Contains application-specific protocols for activities like web browsing and email.
    - These protocols are often the most familiar to users.
 
-![](https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-04%20at%2011.47.25.png)
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-04%20at%2011.47.25.png" height="400">
+</p>
 
 **Analogy**: 
 - **Physical Layer**: Delivery truck and roads.
@@ -31,4 +33,6 @@ To grasp networking, it's essential to understand the components involved, from 
 - **Transport Layer**: Ensuring the delivery driver knocks on the right door.
 - **Application Layer**: The contents of the delivered package.
 
-![](https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-04%20at%2011.45.25.png)
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-04%20at%2011.45.25.png">
+</p>
