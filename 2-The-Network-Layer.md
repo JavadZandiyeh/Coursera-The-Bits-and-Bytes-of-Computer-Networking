@@ -164,3 +164,99 @@ How MAC and IP addresses relate through ARP:
 
 - **Benefit**:
   - Ensures efficient communication by mapping IP addresses to MAC addresses, reducing the need for repeated broadcasts.
+
+## 2.2 Subnetting
+Subnetting is the process of dividing a large network into smaller subnetworks (subnets extend the capabilities of network and host IDs).
+
+- **Address Classes**:
+  - Address classes (A, B, C) divide global IP space into discrete networks.
+  - Example: IP address 9.100.100.100 belongs to the 9.0.0.0 Class A network.
+  - **Routing**:
+    - **Core Routers**: Route messages based on the network ID.
+    - **Gateway Routers**: Serve as entry and exit points for specific networks and route data to the correct system using the host ID.
+
+- **Need for Subnetting**:
+  - Class A networks can have up to 16,777,216 IP addresses, which is too many for a single router to manage.
+  - **Solution**: Subnets divide a large network into smaller, manageable segments.
+  - Each subnet has its own gateway router for ingress and egress, improving network organization and performance.
+ 
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2020.47.01.png" height="300">
+</p>
+
+**IP Address Structure**:
+- **Network ID**: Identifies the network.
+- **Subnet ID**: Further divides the network into subnets.
+- **Host ID**: Identifies individual hosts within the network.
+
+**Subnet Masks**:
+- **Function**: Define the boundary between network, subnet, and host IDs.
+- **Structure**: 32-bit numbers, often written as four octets in decimal (e.g., 255.255.255.0).
+  - The mask part (all ones) indicates the subnet ID.
+  - The remaining part (all zeros) indicates the host ID.
+
+**Subnet Mask Example**:
+- **255.255.255.0**: 
+  - **Binary**: 24 ones followed by eight zeros.
+  - **Usage**: Defines the last octet for host IDs.
+  - **Host Range**: Provides 256 possible host addresses (0-255), but typically only 1-254 are usable (0 is reserved, 255 is for broadcast).
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2020.48.02.png" height="300">
+</p>
+
+**Advanced Subnet Mask**:
+- **255.255.255.224**:
+  - **Binary**: 27 ones followed by five zeros.
+  - **Host Range**: 32 possible addresses.
+  - **Shorthand Notation**: /27 (e.g., 9.100.100.100/27).
+
+**Practical Application**:
+- **Core Routers**: Route based on network ID.
+- **Gateway Routers**: Use subnet ID for routing within the network and host ID for final delivery.
+- **ARP**: Helps discover MAC addresses corresponding to IP addresses.
+
+**Address Classes and Their Limitations**:
+- **Initial Approach**: Address classes (A, B, C) were the first method to organize the global Internet IP space.
+- **Limitations**:
+  - Fixed network ID sizes: 8-bit for Class A, 16-bit for Class B, 24-bit for Class C.
+  - Imbalanced network sizes: 
+    - Only 254 Class A networks.
+    - 2,097,152 potential Class C networks.
+  - Inflexibility for business needs: 
+    - Class C (254 hosts) often too small.
+    - Class B (65,534 hosts) often too large.
+  - Routing table congestion: Multiple Class C networks for the same destination.
+
+**Introduction of CIDR (Classless Inter-Domain Routing)**:
+- **Purpose**: Offers a more flexible and efficient way to manage IP addresses and routing.
+- **Concept**: 
+  - Abandons fixed address classes.
+  - Uses subnet masks to define networks.
+  - Combines network and subnet IDs into one.
+  - Introduces CIDR notation (e.g., 9.100.100.100/24).
+
+**Benefits of CIDR**:
+- **Simplification**: 
+  - Routers need fewer entries in routing tables.
+  - More straightforward handling of IP addresses.
+- **Flexible Network Sizes**:
+  - Allows creation of networks of varying sizes (e.g., /23, /24).
+  - Avoids rigid Class A, B, C limitations.
+- **Efficient Address Allocation**:
+  - A /23 network (512 potential hosts) vs. two /24 networks (508 hosts).
+  - Maximizes usable IP addresses by reducing wasted space.
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2021.12.46.png" height="300">
+</p>
+
+**Practical Example**:
+- **Without CIDR**:
+  - Company needs more than 254 addresses.
+  - Requires multiple Class C networks.
+  - Leads to multiple routing table entries.
+- **With CIDR**:
+  - Can use a single /23 network (255.255.254.0).
+  - Reduces routing table entries.
+  - Increases available hosts (510 usable IPs).
