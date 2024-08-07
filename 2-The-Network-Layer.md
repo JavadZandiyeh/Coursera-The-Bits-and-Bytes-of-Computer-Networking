@@ -260,3 +260,267 @@ Subnetting is the process of dividing a large network into smaller subnetworks (
   - Can use a single /23 network (255.255.254.0).
   - Reduces routing table entries.
   - Increases available hosts (510 usable IPs).
+
+## 2.3 Routing
+**Introduction:**
+- The internet connects millions of individual networks, enabling near-instantaneous global data access.
+- Routing is the process that facilitates communication across these networks.
+
+**Key Concepts:**
+
+1. **Routing Overview:**
+   - **Simple yet Complex:** Basic routing is simple, but its underlying mechanisms are complex.
+   - **Handled by ISPs and Large Companies:** Intensive routing issues are managed by Internet Service Providers (ISPs) and large companies.
+
+2. **Basic Routing Steps:**
+   1. **Packet Reception:** A router receives a data packet on one of its interfaces.
+   2. **Destination IP Examination:** The router checks the packet's destination IP address.
+   3. **Routing Table Lookup:** The router finds the destination network in its routing table.
+   4. **Packet Forwarding:** The router forwards the packet to the interface closest to the remote network.
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.12.53.png" height="300">
+</p>
+
+3. **Example 1: Two-Network Routing**
+   - **Network A:** 192.168.1.0/24
+   - **Network B:** 10.0.0.0/24
+   - **Router Interfaces:** 
+     - Network A: 192.168.1.1
+     - Network B: 10.0.0.254
+   - **Packet Flow:** 
+     1. Computer on Network A (192.168.1.100) sends a packet to 10.0.0.10.
+     2. Packet sent to the router (192.168.1.1) and forwarded to Network B (10.0.0.10).
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.14.55.png" height="300">
+</p>
+
+4. **Example 2: Three-Network Routing**
+   - **Network A:** 192.168.1.0/24
+   - **Network B:** 10.0.0.0/24
+   - **Network C:** 172.16.1.0/23
+   - **Router 1 Interfaces:** 
+     - Network A: 192.168.1.1
+     - Network B: 10.0.0.254
+   - **Router 2 Interfaces:** 
+     - Network B: 10.0.0.1
+     - Network C: 172.16.1.1
+   - **Packet Flow:** 
+     1. Computer on Network A (192.168.1.100) sends a packet to 172.16.1.100.
+     2. Packet sent to Router 1 (192.168.1.1), forwarded to Router 2 (10.0.0.1), and then to the final destination (172.16.1.100).
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.19.55.png" height="300">
+</p>
+
+**Routing on the Internet:**
+- **Scale:** Internet routing involves more routers and networks.
+- **Mesh Topology:** Core internet routers are interconnected in a mesh for redundancy and multiple paths.
+- **Process:** 
+  - Routers inspect the destination IP.
+  - Look up the routing table for the best path.
+  - Forward packets along the determined path.
+ 
+**History and Basics of Routing Tables:**
+1. **Early Routers:**
+   - Early routers were regular computers with two network interfaces and a manually updated routing table.
+   - Modern operating systems still use routing tables for data transmission.
+   - You can build a router today with a computer, two network interfaces, and a manually updated routing table.
+
+2. **Common Features:**
+   - **Destination Network:** Defines each network the router knows about (network ID and netmask).
+   - **Next Hop:** IP address of the next router for the destination network or indicates if the network is directly connected.
+   - **Total Hops:** Number of hops to the destination network. Routers aim for the shortest path, which can change due to network conditions.
+   - **Interface:** Specifies which router interface should forward the traffic for the destination network.
+
+3. **Characteristics:**
+   - Vary by router make and class.
+   - Core Internet routers have millions of rows in their routing tables, which are consulted for every packet.
+	- Four main columns: Destination Network, Next Hop, Total Hops, and Interface.
+    - Catch-all entry for unknown IP addresses.
+    - Routing tables update based on network changes (router failures, new links, congestion).
+    - Critical for ensuring timely and efficient data delivery across networks.
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.26.12.png" height="300">
+</p>
+
+**Routing Protocols Overview:**
+- The real magic lies in how routing tables are continuously updated with new information.
+- Routing protocols enable routers to communicate and share information.
+- These protocols help routers determine the best path to destination networks.
+- Two main categories: Interior Gateway Protocols (IGPs) and Exterior Gateway Protocols (EGPs).
+
+**Interior Gateway Protocols (IGPs):**
+1. **Purpose:** 
+   - Used within a single autonomous system (AS).
+   - Example: Large corporations or ISPs with national-scale networks.
+
+2. **Types:**
+   - **Link State Protocols**
+   - **Distance Vector Protocols**
+
+**Distance Vector Protocols:**
+- **Method:**
+  - Routers share their routing table (list of known networks and hop distances) with neighboring routers.
+  - A list is referred to as a vector in computer science, hence the name.
+- **Example:**
+  - Router A and Router B influence each other’s routing tables by sharing hop distances.
+  - Router A updates its table based on Router B’s information for quicker paths.
+- **Limitations:**
+  - Limited knowledge of the overall network state.
+  - Slower reaction to distant network changes.
+- **Protocols:**
+  1. **RIP (Routing Information Protocol):**
+	   - **Specification:** IETF RFC 2453
+	2. **EIGRP (Enhanced Interior Gateway Routing Protocol):**
+	   - **Documentation:** Cisco
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.32.33.png" height="300">
+</p>
+
+**Link State Protocols:**
+- **Method:**
+  - Routers advertise the state of their links (interfaces) to all routers within the AS.
+  - Each router knows the details of every other router and network in the AS.
+- **Process:**
+  - Uses more memory and processing power to run algorithms on this comprehensive data set.
+  - Determines the best path to any destination network.
+- **Advantages:**
+  - Faster reaction to network changes.
+  - More accurate and efficient routing decisions.
+- **Evolution:**
+  - Link state protocols have become dominant due to advancements in computer hardware.
+- **Protocols:**
+  - **OSPF (Open Shortest Path First):**
+	  - **Specification:** IETF RFC 2328 
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.33.40.png" height="300">
+</p>
+
+**Exterior Gateway Protocols (EGPs):**
+- **Purpose:** 
+  - Facilitate communication between routers at the edges of different autonomous systems (ASes).
+  - Essential for data exchange across organizations and for the Internet's operation.
+- **Role in the Internet:**
+  - Core Internet routers use EGPs to forward traffic between autonomous systems.
+  - Key to managing the vast network of interconnected ASes.
+- **BGP (Border Gateway Protocol):**
+  - **Specification:** IETF RFC 4271
+  - **Role:** Standard for Internet-wide information exchange.
+  - BGP is the sole standard for external routing.
+
+**Autonomous Systems (ASes):**
+- **Definition:** 
+  - Defined collections of networks under a single organization.
+  - ASes are integral to Internet routing.
+- **Core Router Goal:**
+  - Route data efficiently to the edge router of the target AS.
+
+**Internet Assigned Numbers Authority (IANA):**
+- **Responsibilities:**
+  - Manages IP address allocation and Autonomous System Number (ASN) allocation.
+- **ASNs:**
+  - 32-bit numbers assigned to individual ASes.
+  - Unlike IP addresses, ASNs are presented as single decimal numbers.
+  - Less frequently seen by users.
+  - ASNs help identify entire ASes without needing to be split into segments like IP addresses.
+
+ <p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.36.10.png" height="300">
+</p>
+
+### IPv4 Address Limitations and Non-Routable Address Space
+
+**Historical Context:**
+- **Problem:** By 1996, it was clear the Internet’s growth was outpacing the available IPv4 addresses.
+  - **IPv4 Limitations:** IPv4 uses a 32-bit address system, providing 4,294,967,295 unique addresses.
+  - **Current Usage:** As of 2017, with approximately 7.5 billion people and numerous data centers, IPv4 cannot support all users and devices.
+
+**RFC 1918:**
+- **Publication:** Introduced in 1996 to address the IPv4 address shortage.
+- **Purpose:** Defined non-routable address space to manage internal network communications without affecting global routing.
+  - **Non-Routable Address Space:** IP ranges that cannot be routed over the Internet but can be used internally within organizations.
+  
+**Defined Ranges:**
+- **10.0.0.0/8**
+- **172.16.0.0/12**
+- **192.168.0.0/16**
+  - **Usage:** These ranges are free for anyone to use internally and are not routable by core Internet routers.
+
+**Routing Implications:**
+- **Interior Gateway Protocols (IGPs):** Can route non-routable addresses within an autonomous system.
+- **Exterior Gateway Protocols (EGPs):** Do not route non-routable addresses across the Internet.
+- **Network Address Translation (NAT):** Will be discussed in a future module. NAT allows devices in non-routable address spaces to communicate with the Internet.
+
+## 2.4 Glossary Terms
+**Address class system:** A system which defines how the global IP address space is split up
+
+**Address Resolution Protocol (ARP):** A protocol used to discover the hardware address of a node with a certain IP address
+
+**ARP table:** A list of IP addresses and the MAC addresses associated with them
+
+**ASN:** Autonomous System Number is a number assigned to an individual autonomous system
+
+**Demarcate:** To set the boundaries of something
+
+**Demarcation point:** Where one network or system ends and another one begins
+
+**Destination network:** The column in a routing table that contains a row for each network that the router knows about
+
+**DHCP:** A technology that assigns an IP address automatically to a new device. It is an application layer protocol that automates the configuration process of hosts on a network
+
+**Dotted decimal notation:** A format of using dots to separate numbers in a string, such as in an IP address
+
+**Dynamic IP address:** An IP address assigned automatically to a new device through a technology known as Dynamic Host Configuration Protocol
+
+**Exterior gateway:** Protocols that are used for the exchange of information between independent autonomous systems
+
+**Flag field:** It is used to indicate if a datagram is allowed to be fragmented, or to indicate that the datagram has already been fragmented
+
+**Fragmentation:** The process of taking a single IP datagram and splitting it up into several smaller datagrams
+
+**Fragmentation offset field:** It  contains values used by the receiving end to take all the parts of a fragmented packet and put them back together in the correct order
+
+**Header checksum field:** A checksum of the contents of the entire IP datagram header
+
+**Header length field:** A four bit field that declares how long the entire header is. It is almost always 20 bytes in length when dealing with IPv4
+
+**IANA:** The Internet Assigned Numbers Authority, is a non-profit organization that helps manage things like IP address allocation
+
+**Identification field:** It is a 16-bit number that's used to group messages together
+
+**Interface:** For a router, the port where a router connects to a network. A router gives and receives data through its interfaces. These are also used as part of the routing table
+
+**Interior gateway:** Interior gateway protocols are used by routers to share information within a single autonomous system
+
+**IP datagram:** A highly structured series of fields that are strictly defined
+
+**IP options field:** An optional field and is used to set special characteristics for datagrams primarily used for testing purposes
+
+**Network Address Translation (NAT):** A mitigation tool that lets organizations use one public IP address and many private IP addresses within the network
+
+**Next hop:** The IP address of the next router that should receive data intended for the destination networking question or this could just state the network is directly connected and that there aren't any additional hops needed. Defined as part of the routing table
+
+**Non-routable address space:** They are ranges of IPs set aside for use by anyone that cannot be routed to
+
+**Padding field:** A series of zeros used to ensure the header is the correct total size
+
+**Protocol field:** A protocol field is an 8-bit field that contains data about what transport layer protocol is being used
+
+**Routing protocols:** Special protocols the routers use to speak to each other in order to share what information they might have
+
+**Service type field:** A eight bit field that can be used to specify details about quality of service or QoS technologies
+
+**Static IP address:** An IP address that must be manually configured on a node
+
+**Subnet mask:** 32-bit numbers that are normally written as four octets of decimal numbers
+
+**Subnetting:** The process of taking a large network and splitting it up into many individual smaller sub networks or subnets
+
+**Time-To-Live field (TTL):** An 8-bit field that indicates how many router hops a datagram can traverse before it's thrown away
+
+**Total hops:** The total number of devices data passes through to get from its source to its destination. Routers try to choose the shortest path, so fewest hops possible. The routing table is used to keep track of this
+
+**Total length field:** A 16-bit field that indicates the total length of the IP datagram it's attached to
