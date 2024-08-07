@@ -137,3 +137,30 @@
 <p align="center">
   <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2014.56.43.png" height="300">
 </p>
+
+How MAC and IP addresses relate through ARP:
+
+- **Address Resolution Protocol (ARP)**:
+  - **Purpose**: Discover the MAC address associated with a given IP address.
+  - **Usage**: Required to encapsulate an IP datagram inside an Ethernet frame.
+
+- **Process**:
+  1. **Creating an Ethernet Frame**:
+     - Need a destination MAC address to complete the frame header.
+  2. **ARP Table**:
+     - Stores mappings of IP addresses to MAC addresses on a local device.
+  3. **Sending Data**:
+     - **Case 1**: Destination MAC address is not in the ARP table.
+       - **Action**: Send a broadcast ARP message to all devices on the local network (MAC Broadcast address: all Fs).
+  4. **ARP Response**:
+     - **Received by**: The device with the required IP address.
+     - **Content**: MAC address of the responding device.
+     - **Result**: The sending device can now add the correct MAC address to the Ethernet frame header.
+  5. **Storing Information**:
+     - The sending device updates its ARP table with the new IP-to-MAC mapping.
+     - **Purpose**: Avoid future ARP broadcasts for this IP address.
+  6. **ARP Table Expiry**:
+     - Entries expire after a short time to accommodate network changes.
+
+- **Benefit**:
+  - Ensures efficient communication by mapping IP addresses to MAC addresses, reducing the need for repeated broadcasts.
