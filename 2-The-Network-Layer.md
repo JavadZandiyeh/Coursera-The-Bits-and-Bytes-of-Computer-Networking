@@ -305,7 +305,7 @@ Subnetting is the process of dividing a large network into smaller subnetworks (
 4. **Example 2: Three-Network Routing**
    - **Network A:** 192.168.1.0/24
    - **Network B:** 10.0.0.0/24
-   - **Network C:** 172.16.1.0/23
+   - **Network C:** 172.16.1.0/24
    - **Router 1 Interfaces:** 
      - Network A: 192.168.1.1
      - Network B: 10.0.0.254
@@ -437,14 +437,14 @@ Subnetting is the process of dividing a large network into smaller subnetworks (
   <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2023.36.10.png" height="300">
 </p>
 
-### IPv4 Address Limitations and Non-Routable Address Space
+**IPv4 Address Limitations and Non-Routable Address Space:**
 
 **Historical Context:**
 - **Problem:** By 1996, it was clear the Internet’s growth was outpacing the available IPv4 addresses.
   - **IPv4 Limitations:** IPv4 uses a 32-bit address system, providing 4,294,967,295 unique addresses.
   - **Current Usage:** As of 2017, with approximately 7.5 billion people and numerous data centers, IPv4 cannot support all users and devices.
 
-**RFC 1918:**
+**RFC (Request for Note) 1918:**
 - **Publication:** Introduced in 1996 to address the IPv4 address shortage.
 - **Purpose:** Defined non-routable address space to manage internal network communications without affecting global routing.
   - **Non-Routable Address Space:** IP ranges that cannot be routed over the Internet but can be used internally within organizations.
