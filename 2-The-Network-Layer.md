@@ -1,4 +1,3 @@
-
 # 2 The Network Layer
 ## 2.1 Introduction
 - **Local Area Network (LAN) Communication**:
@@ -106,25 +105,30 @@
     - **Network ID**: First octet.
     - **Host ID**: Last three octets.
     - **Range**: 0-127 in the first octet.
-    - **Total Addresses**: 2^24 (16,777,216).
+    - **Total Networks in Class A**: 2^((1*8)-1) = 2^7 = 128.
+    - **Total Host Addresses Per Network A**: 2^(3*8) = 2^24 = 16,777,216.
   - **Class B**:
     - **Network ID**: First two octets.
     - **Host ID**: Last two octets.
     - **Range**: 128-191 in the first octet.
-    - **Total Addresses**: 2^16 (65,536).
+    - **Total Networks in Class B**: 2^((2*8) - 2) = 2^14 = 16,384.
+    - **Total Host Addresses Per Network B**: 2^(2*8) = 2^16 = 65,536.
   - **Class C**:
     - **Network ID**: First three octets.
     - **Host ID**: Last octet.
     - **Range**: 192-223 in the first octet.
-    - **Total Addresses**: 2^8 (256).
+    - **Total Networks in Class C**: 2^((3*8) - 3) = 2^21 = 2,097,152.
+    - **Total Host Addresses Per Network C**: 2^8 = 256.
 
 - **Other Classes**:
   - **Class D**:
     - **Usage**: Multicasting.
     - **Range**: 224-239 in the first octet.
+    - **Total Networks in Class D**: 2^((4*8)-4) = 2^28 = 268,435,456
   - **Class E**:
     - **Usage**: Experimental, reserved for testing.
     - **Range**: 240-255 in the first octet.
+    - **Total Networks in Class E**: 2^((4*8)-4) = 2^28 = 268,435,456
 
 - **CIDR (Classless Inter-Domain Routing)**:
   - Replaces the class system but understanding address classes is still useful for networking education.
@@ -133,6 +137,8 @@
   - **Class A**: First bit is 0 (Decimal range: 0-127).
   - **Class B**: First bits are 10 (Decimal range: 128-191).
   - **Class C**: First bits are 110 (Decimal range: 192-223).
+  - **Class D**: First bits are 1110 (Decimal range: 224-239).
+  - **Class E**: First bits are 1111 (Decimal range: 240-255).
 
 <p align="center">
   <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-07%20at%2014.56.43.png" height="300">
@@ -221,7 +227,7 @@ Subnetting is the process of dividing a large network into smaller subnetworks (
 - **Limitations**:
   - Fixed network ID sizes: 8-bit for Class A, 16-bit for Class B, 24-bit for Class C.
   - Imbalanced network sizes: 
-    - Only 254 Class A networks.
+    - Only 127 Class A networks.
     - 2,097,152 potential Class C networks.
   - Inflexibility for business needs: 
     - Class C (254 hosts) often too small.
@@ -244,7 +250,7 @@ Subnetting is the process of dividing a large network into smaller subnetworks (
   - Allows creation of networks of varying sizes (e.g., /23, /24).
   - Avoids rigid Class A, B, C limitations.
 - **Efficient Address Allocation**:
-  - A /23 network (512 potential hosts) vs. two /24 networks (508 hosts).
+  - A /23 network (510 usable hosts) vs. two /24 networks (508 usable hosts).
   - Maximizes usable IP addresses by reducing wasted space.
 
 <p align="center">
