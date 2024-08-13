@@ -325,3 +325,87 @@ The DHCP discovery process involves four key steps, each leveraging different ne
 - **IP Datagram**:
   - **Source IP**: `0.0.0.0` (client) / Server's IP
   - **Destination IP**: `255.255.255.255` (broadcast)
+
+## 4.4 Network Address Translation (NAT)
+Unlike protocols like DNS and DHCP, Network Address Translation (NAT) is a technique rather than a standardized protocol. It involves translating one IP address into another, often implemented differently across various operating systems and network hardware vendors.
+
+**Functionality:** NAT enables a gateway (typically a router or firewall) to rewrite the source IP address of outgoing IP datagrams. It retains the original IP for rewriting when a response is received.
+
+**Example:**
+- **Network A**: Uses the address space `10.1.1.0/24`.
+- **Network B**: Uses the address space `192.168.1.0/24`.
+- **Router**:
+  - Interface on Network A: `10.1.1.1`
+  - Interface on Network B: `192.168.1.1`
+- **Computer 1**:
+  - IP: `10.1.1.100` (on Network A)
+- **Computer 2**:
+  - IP: `192.168.1.100` (on Network B)
+
+1. **Initiation**:
+   - Computer 1 (10.1.1.100) wants to access a web server hosted on Computer 2 (192.168.1.100).
+   - It crafts a packet with source IP `10.1.1.100` and destination IP `192.168.1.100` and sends it to its gateway, the router.
+
+2. **NAT at the Router**:
+   - The router is configured to perform NAT for outbound traffic from Network A to Network B.
+   - **Without NAT**: The router would decrement the TTL, recalculate the checksum, and forward the packet unchanged.
+   - **With NAT**: The router rewrites the source IP (`10.1.1.100`) to its own IP on Network B (`192.168.1.1`). This modification is key to the NAT process.
+
+3. **Delivery**:
+   - The packet reaches Computer 2 (192.168.1.100) with the source IP now appearing as `192.168.1.1` (the router’s IP).
+   - From Computer 2’s perspective, the request seems to originate from the router, not directly from Computer 1.
+
+4. **Response**:
+   - Computer 2 crafts a response and sends it back to the source IP of `192.168.1.1`.
+   - The router receives this response, recognizes it as a packet destined for Computer 1 (10.1.1.100) based on its NAT table, and rewrites the destination IP from `192.168.1.1` to `10.1.1.100` before forwarding it back to Computer 1.
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2018.52.38.png" height="400">
+</p>
+
+**IP Masquerading and Security**
+
+The process described above is a form of **IP masquerading**. Here’s why it’s significant:
+
+- **Security Benefits**: NAT hides the internal IP addresses (e.g., `10.1.1.100`) from the external network. To the external world, it appears as though all traffic from Network A originates from a single IP (the router’s IP, `192.168.1.1`).
+- **One-to-Many NAT**: This method allows multiple devices on Network A to communicate with devices on Network B using the same external IP. The router manages which internal IP corresponds to which external connection through its NAT table.
+
+**NAT and IPv4 Address Space**
+
+One of the primary reasons NAT is so prevalent is its ability to help conserve the limited IPv4 address space. Since multiple devices can share a single public IP address (through one-to-many NAT), this significantly reduces the need for unique public IP addresses for every device on a network.
+
+**NAT Challenges at the Transport Layer:**
+
+Network Address Translation (NAT) at the network layer is straightforward, with IP addresses being translated by a router. However, things get more intricate at the transport layer, especially with techniques like **port preservation** and **port forwarding**, which are essential for managing the complexities of one-to-many NAT.
+
+**A. Port Preservation**
+Port preservation is crucial for ensuring that return traffic is directed to the correct device on the internal network. Here's how it works:
+
+1. **Source Port Selection**: When a device on a local network initiates an outbound connection, the operating system's networking stack randomly selects a source port from the ephemeral port range (49,152 through 65,535).
+
+2. **NAT Translation**: As the data packet passes through the NAT-enabled router, the router replaces the device's private IP address with its own public IP address. However, it keeps the original source port unchanged and stores this mapping (private IP + source port → public IP + source port) in a NAT table.
+
+3. **Traffic Return**: When the external server sends a response, it arrives at the router on the preserved source port. The router then looks up its NAT table to match this port with the original internal IP address and forwards the packet to the correct device.
+
+4. **Handling Conflicts**: If two devices on the internal network choose the same ephemeral port simultaneously, the router assigns an alternate, unused port to avoid conflicts, updating the NAT table accordingly.
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2019.13.46.png" height="400">
+</p>
+
+**B. Port Forwarding**
+Port forwarding is another key NAT technique that enables external users to access specific services inside a private network while maintaining IP masquerading.
+
+1. **Service Accessibility**: Port forwarding maps a specific external port on the router's public IP address to a port on an internal IP address. For instance, a web server inside a network might be accessible through the router's public IP on port 80, even though the actual server has a private IP address (e.g., 10.1.1.5).
+
+2. **Traffic Routing**: When external traffic arrives at the router's public IP on the specified port (e.g., port 80 for HTTP traffic), the router forwards it to the internal IP address of the web server. The response traffic is then sent back to the external client with the router's public IP as the source, maintaining the appearance of a single, unified public-facing service.
+
+3. **Multiple Services, One IP**: This technique allows multiple services to be hosted on different internal servers but accessible via the same external IP address. For example, both a web server (10.1.1.5) and a mail server (10.1.1.6) could be accessed using the same external IP, with traffic directed to the appropriate server based on the destination port (e.g., port 80 for the web server and port 25 for the mail server).
+
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2019.32.45.png" height="400">
+</p>
+
+**Summary**
+- **Port Preservation** ensures that return traffic is correctly routed back to the original requesting device by keeping track of source ports.
+- **Port Forwarding** allows external access to internal services while maintaining the security benefits of IP masquerading, enabling multiple services to be accessible through a single external IP address.
