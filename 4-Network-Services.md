@@ -360,7 +360,7 @@ Unlike protocols like DNS and DHCP, Network Address Translation (NAT) is a techn
    - The router receives this response, recognizes it as a packet destined for Computer 1 (10.1.1.100) based on its NAT table, and rewrites the destination IP from `192.168.1.1` to `10.1.1.100` before forwarding it back to Computer 1.
 
 <p align="center">
-  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2018.52.38.png" height="400">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2018.52.38.png" height="300">
 </p>
 
 **IP Masquerading and Security**
@@ -390,7 +390,7 @@ Port preservation is crucial for ensuring that return traffic is directed to the
 4. **Handling Conflicts**: If two devices on the internal network choose the same ephemeral port simultaneously, the router assigns an alternate, unused port to avoid conflicts, updating the NAT table accordingly.
 
 <p align="center">
-  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2019.13.46.png" height="400">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2019.13.46.png" height="300">
 </p>
 
 **B. Port Forwarding**
@@ -403,9 +403,35 @@ Port forwarding is another key NAT technique that enables external users to acce
 3. **Multiple Services, One IP**: This technique allows multiple services to be hosted on different internal servers but accessible via the same external IP address. For example, both a web server (10.1.1.5) and a mail server (10.1.1.6) could be accessed using the same external IP, with traffic directed to the appropriate server based on the destination port (e.g., port 80 for the web server and port 25 for the mail server).
 
 <p align="center">
-  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2019.32.45.png" height="400">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Screenshot%202024-08-13%20at%2019.32.45.png" height="300">
 </p>
 
 **Summary**
 - **Port Preservation** ensures that return traffic is correctly routed back to the original requesting device by keeping track of source ports.
 - **Port Forwarding** allows external access to internal services while maintaining the security benefits of IP masquerading, enabling multiple services to be accessible through a single external IP address.
+
+**IPv4 Address Exhaustion and Transition to IPv6**
+
+- **IPv4 Exhaustion Overview:**
+  - **IPv4 Limits:** The IPv4 system, with 4.2 billion possible IP addresses, is nearly exhausted due to the rapid expansion of the internet.
+  - **Address Allocation:** The Internet Assigned Numbers Authority (IANA) manages IP address distribution, assigning blocks to five Regional Internet Registries (RIRs) based on geographical regions:
+    - **AFRINIC:** Africa
+    - **ARIN:** USA, Canada, parts of the Caribbean
+    - **APNIC:** Most of Asia, Australia, New Zealand, Pacific Island nations
+    - **LACNIC:** Central and South America, parts of the Caribbean
+    - **RIPE:** Europe, Russia, Middle East, portions of Central Asia
+   
+<p align="center">
+  <img src="https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/images/Regional%20internet%20registries%20(RIRs).png" height="300">
+</p>
+
+- **IPv4 Address Exhaustion Timeline:**
+  - **APNIC:** Exhausted its final /8 addresses in April 2011.
+  - **RIPE:** Exhausted its final /8 addresses in September 2012.
+  - **LACNIC:** Exhausted its final /10 addresses in June 2014.
+  - **ARIN:** Exhausted its free IPv4 addresses in September 2015.
+  - **AFRINIC:** Entered IPv4 Exhaustion Phase 2 in January 2020.
+
+- **Transition to IPv6:**
+  - **IPv6 Introduction:** IPv6, with 128-bit addresses, offers a vast number of IP addresses, effectively solving the limitations of IPv4.
+  - **Current Usage:** Despite the benefits of IPv6, 99% of devices still use IPv4, making the transition gradual. IT professionals need to be aware of IPv6 as it becomes more prevalent.
