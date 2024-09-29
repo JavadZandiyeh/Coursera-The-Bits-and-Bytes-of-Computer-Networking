@@ -18,6 +18,8 @@ Learning Objectives:
 - Describe how the physical layer works.
 - Describe how the data link layer works.
 
+Summary: [Introduction to Networking](https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/Summary/1-Introduction-to-Networking.md)
+
 ## 2. The Network Layer
 In the second module of this course, we'll explore the network layer in more depth. We'll learn about the IP addressing scheme and how subnetting works. We'll explore how encapsulation works and how protocols such as ARP allow different layers of the network to communicate. We'll also cover the basics of routing, routing protocols, and how the Internet works. By the end of this module, you'll be able to describe the IP addressing scheme, understand how subnetting works, perform binary math to describe subnets, and understand how the Internet works.
 
@@ -30,6 +32,8 @@ Learning Objectives:
 - Describe how the Internet works.
 - Understand the basics of routing and routing protocols.
 
+Summary: [The Network Layer](https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/Summary/2-The-Network-Layer.md)
+
 ## 3. The Transport and Application Layer
 In the third module of this course, we'll explore the transport and application layers. By the end of this module, you'll be able to describe TCP ports and sockets, identify the different components of a TCP header, show the difference between connection-oriented and connectionless protocols, and explain how TCP is used to ensure data integrity.
 
@@ -38,6 +42,8 @@ Learning Objectives:
 - Examine the different components of a TCP header.
 - Compare differences between connection-oriented and connectionless protocols.
 - Explain how TCP is used to ensure data integrity.
+
+Summary: [The Transport and Application Layer](https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/Summary/3-The-Transport-and-Application-Layers.md)
 
 ## 4. Networking Services
 In the fourth module of this course, we'll explore networking services. We'll learn about why we need DNS and how it works. We'll also show you why DHCP makes network administration a simpler task. By the end of this module, you'll be able to do describe how DNS and DHCP work, how NAT technologies help keep networks secure, and how VPNs and proxies help users connect and stay secured.
@@ -50,6 +56,8 @@ Learning Objectives:
 - Demonstrate how NAT technologies help keep networks secure and preserve IP address space.
 - Describe how VPNs and proxies help users get connected and stay secure.
 
+Summary: [Networking Services](https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/Summary/4-Network-Services.md)
+
 ## 5. Connecting to the Internet
 In the fifth module of this course, we'll explore the history of the Internet, how it evolved, and how it works today. We'll understand the different ways to connect to the Internet through cables, wireless and cellar connections, and even fiber connections. By the end of this module, you'll be able to define the components of WANs and outline the basics of wireless and cellular networking.
 
@@ -58,9 +66,13 @@ Learning Objectives:
 - Define components of WANs.
 - Outline the basics of wireless and cellular networking.
 
+Summary: [Connecting to the Internet](https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/Summary/5-Connecting-to-the-Internet.md)
+
 ## 6. Troubleshooting and the Future of Networking
 Congratulations, you've made it to the final module in the course! In the last module of this course, we'll explore the future of computer networking. We'll also cover the practical aspects of troubleshooting a network using popular operating systems. By the end of this module, you'll be able to detect and fix a lot of common network connectivity problems using tools available in Microsoft Windows, MacOS, and Linux operating systems.
 
 Learning Objectives:
 - Inspect common network connectivity problems.
 - Use tools available in Microsoft Windows, MacOS, and Linux to troubleshoot network issues.
+
+Summary: [Troubleshooting and the Future of Networking]()
