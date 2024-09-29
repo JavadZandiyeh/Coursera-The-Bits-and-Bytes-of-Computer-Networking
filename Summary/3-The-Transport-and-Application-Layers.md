@@ -203,7 +203,7 @@
 
 **All the Networking Layers Working Unison:**
 
-https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/All-the-Networking-Layers-Working-in-Unison.mp4
+https://github.com/JavadZandiyeh/Coursera-The-Bits-and-Bytes-of-Computer-Networking/blob/main/Others/All-the-Networking-Layers-Working-in-Unison.mp4
 
 ## 3.3 Glossary Terms
 
